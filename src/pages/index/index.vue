@@ -1,22 +1,25 @@
 <template>
-  <div>
+  <div class="zp-w100 zp-h100" >
     <h1>this is my first mini-app</h1>
-    <ZP />
+    <div style="padding:0 15px;">
+      <mp-input placeholder="数据双向绑定" v-model="inputValue"></mp-input>
+    </div>
+    <div contenteditable="true" style="border:1px solid red;min-height:30px;max-height:100px;">test</div>
   </div>
 </template>
 
 <script>
 
-import ZP from '@/components/zp.vue'
+import mpInput from 'mpvue-weui/src/input'
 
 export default {
   components: { 
-    ZP 
+    mpInput
   },
 
   data () {
     return {
-      
+      inputValue:''
     }
   },
 
@@ -26,64 +29,16 @@ export default {
 
   created () {
     // let app = getApp()
-    wx.showToast({
-      title: ZP.name,
-      icon: 'success',
-      duration: 2000
-    })
   },
+
+  mounted(){
+    wx.setNavigationBarTitle({
+      title: 'title'
+    })
+  }
 }
 </script>
 
 <style scoped>
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-.all{
-  width:7.5rem;
-  height:1rem;
-  background-color:blue;
-}
-.all:after{
-  display:block;
-  content:'';
-  clear:both;
-}
-.left{
-  float:left;
-  width:3rem;
-  height:1rem;
-  background-color:red;
-}
-
-.right{
-  float:left;
-  width:4.5rem;
-  height:1rem;
-  background-color:green;
-}
 </style>

@@ -1,0 +1,232 @@
+.zp-w100{
+  width:100%;
+}
+.zp-h100{
+  height:100%;
+}
+.zp-pr{
+  position: relative;
+}
+.zp-pa{
+  position: absolute
+}
+.zp-cb:after{
+  clear:both;
+}
+.zp-pf{
+  position: fixed
+}
+/*****************************分割线******************************/
+.zp-db{
+  display: block
+}
+.zp-dib{
+  display: inline-block
+}
+.zp-dt{
+  display: table
+}
+.zp-dtc{
+  display: table-cell
+}
+.zp-vam{
+  vertical-align: middle
+}
+.zp-df{
+  display: flex;
+}
+.zp-fdr{
+  flex-direction: row;
+}
+.zp-fdc{
+  flex-direction: column;
+}
+
+/*****************************分割线******************************/
+.zp-jcfs{
+  justify-content: flex-start;
+}
+.zp-jcc{
+  justify-content: center;
+}
+.zp-jcfe{
+  justify-content: flex-end;
+}
+.zp-jcsb{
+  justify-content: space-between;
+}
+.zp-jcsa{
+  justify-content: space-around;
+}
+
+/*****************************分割线******************************/
+.zp-aifs{
+  align-items: flex-start;
+}
+.zp-aic{
+  align-items: center;
+}
+.zp-aie{
+  align-items: flex-end;
+}
+.zp-aib{
+  align-items: baseline;
+}
+.zp-ais{
+  align-items: stretch;
+}
+
+/*****************************分割线******************************/
+.zp-asfs{
+  align-self: flex-start;
+}
+.zp-asc{
+  align-self: center;
+}
+.zp-asfe{
+  align-self: flex-end;
+}
+.zp-ass{
+  align-self: stretch;
+}
+
+/*****************************分割线******************************/
+.zp-f1{
+  flex:1;
+}
+.zp-f2{
+  flex: 2;
+}
+.zp-f3{
+  flex:3;
+}
+.zp-f4{
+  flex:4;
+}
+.zp-f5{
+  flex:5;
+}
+.zp-f6{
+  flex:6;
+}
+.zp-fs0{
+  flex-shrink: 0;
+}
+
+/*****************************分割线******************************/
+.zp-bsbb{
+  box-sizing: border-box;
+}
+/* 包括margin */
+.zp-bscb{
+  box-sizing: content-box;
+}
+
+/*****************************分割线******************************/
+.zp-line1 {
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.zp-line2{
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.zp-line3{
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.zp-line4{
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+/*****************************分割线******************************/
+.zp-scrollx{
+  -webkit-overflow-scrolling: touch;
+  overflow-x:scroll;
+  overflow-y:hidden;
+}
+.zp-scrolly{
+  -webkit-overflow-scrolling: touch;
+  overflow-y:scroll;
+  overflow-x:hidden;
+}
+
+/*****************************分割线******************************/
+.zp-tal{
+  text-align: left;
+}
+.zp-tac{
+  text-align: center;
+}
+.zp-tar{
+  text-align: right;
+}
+
+/*****************************分割线******************************/
+.zp-fs12{
+  font-size: 12px;
+}
+.zp-fs13{
+  font-size: 13px;
+}
+.zp-fs14{
+  font-size: 14px;
+}
+.zp-fs15{
+  font-size: 15px;
+}
+.zp-fs16{
+  font-size: 16px;
+}
+.zp-fs17{
+  font-size: 17px;
+}
+.zp-fs18{
+  font-size: 18px;
+}
+.zp-fs19{
+  font-size: 19px;
+}
+.zp-fs20{
+  font-size: 20px;
+}
+.zp-fs24{
+  font-size: 24px;
+}
+.zp-fs28{
+  font-size: 28px;
+}
+.zp-fwb{
+  font-weight: bolder;
+}
+
+/*****************************分割线******************************/
+.zp-cp{
+  cursor:pointer;
+}
+.zp-activeh:hover{
+  color:#409EFF;
+}
+.zp-activea:active{
+  color:#409EFF;
+}
+
+
+/*********************************分割线*********************************/
+a{
+  text-decoration: none;
+}
+

@@ -5,8 +5,20 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "微信mpvue(没朋友)走起来",
     "navigationBarTextStyle": "black"
   },
-  "position": "bottom"
+  "position": "bottom",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/main",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/index/main",
+        "text": "其他"
+      }
+    ]
+  }
 }
