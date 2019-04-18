@@ -1,8 +1,6 @@
 <template>
   <div class="zp-w100 zp-h100" >
-    <section>
-      <i class="iconfont iconarrowdown"></i>
-    </section>
+    this is my page
   </div>
 </template>
 
@@ -31,7 +29,7 @@ export default {
 
   mounted(){
     wx.setNavigationBarTitle({
-      title: '首页呦'
+      title: '我的'
     })
   }
 }

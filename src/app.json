@@ -1,23 +1,31 @@
 {
   "pages": [
-    "pages/index/main"
+    "pages/index/main",
+    "pages/order/main",
+    "pages/my/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#409EFF",
     "navigationBarTitleText": "微信mpvue(没朋友)走起来",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "position": "bottom",
   "tabBar": {
+    "selectedColor":"#409EFF",
+    "backgroundColor":"#ffffff",
     "list": [
       {
         "pagePath": "pages/index/main",
         "text": "首页"
       },
       {
-        "pagePath": "pages/index/main",
-        "text": "其他"
+        "pagePath": "pages/order/main",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/my/main",
+        "text": "我的"
       }
     ]
   }
