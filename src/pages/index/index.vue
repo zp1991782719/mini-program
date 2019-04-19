@@ -19,6 +19,7 @@
 <script>
 
 import mpInput from 'mpvue-weui/src/input'
+import Mock from 'mockjs'
 
 export default {
   components: { 
@@ -39,6 +40,8 @@ export default {
   created () {
     // let app = getApp()
     let random = Mock.Random
+    console.log(Mock)
+    
   },
 
   mounted(){

@@ -4,6 +4,7 @@ import App from './App'
 import './assets/css/iconfont.css'
 import 'mpvue-weui/src/style/weui.css'
 import './assets/css/mycss.css'
+import "./plugins/mock/index.js"
 
 
 Vue.config.productionTip = false
