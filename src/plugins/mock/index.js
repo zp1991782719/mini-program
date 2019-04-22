@@ -5,7 +5,7 @@ import Mock from 'mockjs'
 
 const Random = Mock.Random
 
-Mock.mock('/api/user/userList', 'get', {
+Mock.mock('/api/z/p/user/userList', 'get', {
   code: 0,
   msg: '',
   'content|20': [
