@@ -5,10 +5,10 @@ import Mock from 'mockjs'
 
 const Random = Mock.Random
 
-Mock.mock('/api/z/p/user/userList', 'get', {
+Mock.mock('/api/user/userList', 'post', {
   code: 0,
-  msg: '',
-  'content|20': [
+  msg: '1123123',
+  'content': [
     {
       avatar: Random.image('200x200', '#50B347', '#FFF', '头像'),
       name: Random.cname(),
