@@ -12,12 +12,18 @@
     </header>
     <section class="zp-w100 zp-f1 zp-scrolly">
       <article class="zp-w100" @touchstart="touchStartImg" @touchmove="touchMoveImg" @touchend="touchEndImg">
-        <div :class="{imgAnimation:isImgMove}" class="zp-df" style="width:600%;overflow:hidden;" :style="{transform:'translateX('+imgX+'px)'}">
-          <img :src="'/static/img/'+img+'.jpg'"  v-for="(img,imgIndex) in imgs" :key="imgIndex" class="zp-f1" style="background-size:contain;"/>
+        <div class="zp-df" style="width:600%;overflow:hidden;" :style="{transform:'translateX('+currentX+'px)',transition:isOpenAnimation?'transform 1s':'transform 0s'}">
+          <img :src="'http://129.204.192.142/img/mini_'+img+'.jpg'"  v-for="(img,imgIndex) in imgs" :key="imgIndex" class="zp-f1" style="background-size:contain;"/>
         </div>
       </article>
       <section class="zp-df zp-jcsb zp-pr" style="top:-20px;width:80px;margin:0 auto;">
-        <div v-for="(imgo,imgFlagIndex) in imgs.length/2" :key="imgFlagIndex"  :style="{'background-color':imgFlagIndex===(imgX/-clientWidth)||imgFlagIndex===(imgX/-clientWidth)?'#409EFF':'white'}" style="width:10px;height:10px;border-radius:50%;"></div>
+        <div v-for="(imgo,imgFlagIndex) in imgs.length/2" 
+          :key="imgFlagIndex"  
+          :style="{'background-color':imgFlagIndex===(currentX/-clientWidth)%3?'#409EFF':'white'}" 
+          style="width:10px;height:10px;border-radius:50%;"
+          @click="chooseImg(imgFlagIndex)"
+        >
+        </div>
       </section>
     </section>
   </div>
@@ -41,17 +47,15 @@ export default {
     return {
       inputValue:'',
       cityName:'杭州',
+      clientWidth:this.$getSysWidth,  //这是屏幕宽度
       imgs:['index1','index2','index3','index1','index2','index3'],
-      initImgX:0,            //移动开始时图片位置
-      imgX:0,                // 图片位置
-      imgStartX:0,           // 移动开始位置
-      imgSwitchSpeend:4000,  //ms
-      imgMoveSpeed:1000,  //ms
-      isImgMove:true,       //是否移动
-      imgInterval:'',        
-      colors:['red','green','blue'],
-      clientWidth:this.$getSysWidth,
-      isAutoWork:true,
+      currentX:0,       //当前的图片位置
+      isOpenAnimation:false,  //是否开启动画效果
+      imgRepeatTime:3000,   //ms
+      imgInterval:0,
+      touchStartX:0,      //手势与屏幕距离
+      touchStartImgX:0,   //触屏时图片的位置
+      isAutoWork:true     //手势移动后图片不用进行操作
     }
   },
 
@@ -60,22 +64,8 @@ export default {
   },
 
   created () {
+    this.currentX = -3*this.clientWidth
     this.initNavImg()
-
-    wx.request({
-      url: 'http://localhost:8888/wxbce355e246bcac2c/0/api/user/userList', // 仅为示例，并非真实的接口地址
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      data: {
-        x: '1',
-        y: '2',
-      },
-
-      success(res) {
-        console.log(res)
-      }
-    })
   },
 
   mounted(){
@@ -86,56 +76,71 @@ export default {
 
   methods:{
     initNavImg(){
-      this.imgInterval = setInterval(() => {
-        this.isAutoWork = true
-        this.isImgMove = true
-        if(this.imgX === -2*this.clientWidth){
-          this.imgX = 0
-        }else{
-          this.imgX -= this.clientWidth
+      this.imgInterval = setInterval(()=> {
+        if(!this.isAutoWork){ 
+          this.isAutoWork = true
+          return
+        }
+        this.isOpenAnimation = false
+        if(this.currentX <= -5*this.clientWidth){
+          this.currentX = -2*this.clientWidth
         }
         setTimeout(() => {
-          this.isImgMove = false
-        }, 1000)
-      }, this.imgSwitchSpeend)
+          this.isOpenAnimation = true
+          this.currentX -= this.clientWidth
+        }, 1000);
+      },this.imgRepeatTime)
+    },
+
+    chooseImg(index){
+      clearInterval(this.imgInterval)
+      this.isOpenAnimation = true
+      this.currentX = (-3 - index) * this.clientWidth
+      this.isAutoWork = false
+      this.initNavImg()
     },
 
     touchStartImg(e){
-      if(!this.isAutoWork&&this.isImgMove) return
-      this.isImgMove = false
-      this.isAutoWork = false
+      if(this.isOpenAnimation) return
       clearInterval(this.imgInterval)
-      this.imgInterval = null
-      if(this.imgX === 0){
-        this.imgX = -3*this.clientWidth
-      }
-      this.initImgX = this.imgX
-      this.imgStartX = e.touches[0].clientX
-      console.log(this.initImgX,e.touches[0].clientX)
+      this.isOpenAnimation = false
+      this.touchStartX = e.touches[0].clientX
+      this.touchStartImgX = this.currentX
     },
 
     touchMoveImg(e){
-      if(!this.isAutoWork&&this.isImgMove) return
-      this.imgX = this.initImgX + e.touches[0].clientX - this.imgStartX
-      console.log('move:'+e.touches[0].clientX)
+      this.currentX = this.touchStartImgX + e.touches[0].clientX - this.touchStartX
     },
 
     touchEndImg(e){
-      if(!this.isAutoWork&&this.isImgMove) return
-      let place = e.mp.changedTouches[0].clientX - this.imgStartX
-      this.isImgMove = true 
-      if(place < 0){
-        this.imgX = (this.initImgX - this.clientWidth)
-      }else{
-        this.imgX = (this.initImgX + this.clientWidth)
-      }
-      setTimeout(() => {
-        this.isImgMove = false
-        this.imgX = this.initImgX = this.imgX/this.clientWidth%3*this.clientWidth
+      let touchEndX = e.mp.changedTouches[0].clientX
+      let touchMovePlace = touchEndX-this.touchStartX
+      this.isOpenAnimation = true
+      if(touchMovePlace>0){
+        this.currentX = this.touchStartImgX + this.clientWidth
         setTimeout(() => {
+          this.isOpenAnimation = false
+          if(this.currentX>=0){
+            this.currentX = -3*this.clientWidth
+          }
+          this.isAutoWork = false
           this.initNavImg()
         }, 1000);
-      },1000)
+      }else if(touchMovePlace<0){
+        this.currentX = this.touchStartImgX - this.clientWidth
+        setTimeout(() => {
+          this.isOpenAnimation = false
+          if(this.currentX<=-5*this.clientWidth){
+            this.currentX = -2*this.clientWidth
+          }
+          this.isAutoWork = false
+          this.initNavImg()
+        }, 1000);
+      }else{
+        this.isAutoWork = false
+        this.isOpenAnimation = false
+        this.initNavImg()
+      }
     },
   }
 }
@@ -144,9 +149,5 @@ export default {
 <style scoped>
 
   ::-webkit-scrollbar{width:0px}
-
-  .imgAnimation{
-    transition:transform 1s;
-  }
 
 </style>
