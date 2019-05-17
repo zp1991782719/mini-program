@@ -25,6 +25,11 @@
         >
         </div>
       </section>
+      <article>
+        <section style="display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr">
+          <div v-for="i in 6" :key="i">{{ i }}</div>
+        </section>
+      </article>
     </section>
   </div>
 </template>
@@ -48,14 +53,26 @@ export default {
       inputValue:'',
       cityName:'杭州',
       clientWidth:this.$getSysWidth,  //这是屏幕宽度
-      imgs:['index1','index2','index3','index1','index2','index3'],
+      imgs:['index1','index2','index3','index1','index2','index3'],   // 3张图片   但是有手势滑动  需6张
       currentX:0,       //当前的图片位置
       isOpenAnimation:false,  //是否开启动画效果
       imgRepeatTime:3000,   //ms
       imgInterval:0,
       touchStartX:0,      //手势与屏幕距离
       touchStartImgX:0,   //触屏时图片的位置
-      isAutoWork:true     //手势移动后图片不用进行操作
+      isAutoWork:true,     //手势移动后图片不用进行操作
+      navs:[
+        {url:'',img:'index1',name:'美食'},
+        {url:'',img:'index1',name:'猫眼电影'},
+        {url:'',img:'index1',name:'酒店住宿'},
+        {url:'',img:'index1',name:'休闲娱乐'},
+        {url:'',img:'index1',name:'外卖'},
+        {url:'',img:'index1',name:'KTV'},
+        {url:'',img:'index1',name:'丽人'},
+        {url:'',img:'index1',name:'景点门票'},
+        {url:'',img:'index1',name:'火车票'},
+        {url:'',img:'index1',name:'明宿'}
+      ]
     }
   },
 
