@@ -27,7 +27,10 @@
       </section>
       <article>
         <section style="display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr">
-          <div v-for="i in 6" :key="i">{{ i }}</div>
+          <article v-for="(nav,i) in navs" :key="i" style="margin-top:10px;">
+            <img :src="'http://129.204.192.142/img/mini_index_nav'+nav.img+'.jpg'" alt="加载失败" class="zp-tac" style="display:block;width:50px;height:50px;border-radius:50%;margin:0 auto;"/>
+            <div style="margin:0 auto;text-align:center;font-size:14px;">{{ nav.name }}</div>
+          </article>
         </section>
       </article>
     </section>
@@ -62,16 +65,16 @@ export default {
       touchStartImgX:0,   //触屏时图片的位置
       isAutoWork:true,     //手势移动后图片不用进行操作
       navs:[
-        {url:'',img:'index1',name:'美食'},
-        {url:'',img:'index1',name:'猫眼电影'},
-        {url:'',img:'index1',name:'酒店住宿'},
-        {url:'',img:'index1',name:'休闲娱乐'},
-        {url:'',img:'index1',name:'外卖'},
-        {url:'',img:'index1',name:'KTV'},
-        {url:'',img:'index1',name:'丽人'},
-        {url:'',img:'index1',name:'景点门票'},
-        {url:'',img:'index1',name:'火车票'},
-        {url:'',img:'index1',name:'明宿'}
+        {url:'',img:'1',name:'美食'},
+        {url:'',img:'2',name:'猫眼电影'},
+        {url:'',img:'3',name:'酒店住宿'},
+        {url:'',img:'4',name:'休闲娱乐'},
+        {url:'',img:'5',name:'外卖'},
+        {url:'',img:'6',name:'KTV'},
+        {url:'',img:'7',name:'丽人'},
+        {url:'',img:'8',name:'景点门票'},
+        {url:'',img:'9',name:'火车票'},
+        {url:'',img:'10',name:'明宿'}
       ]
     }
   },
@@ -98,14 +101,14 @@ export default {
           this.isAutoWork = true
           return
         }
-        this.isOpenAnimation = false
-        if(this.currentX <= -5*this.clientWidth){
-          this.currentX = -2*this.clientWidth
-        }
+        this.isOpenAnimation = true
+        this.currentX -= this.clientWidth
         setTimeout(() => {
-          this.isOpenAnimation = true
-          this.currentX -= this.clientWidth
-        }, 1000);
+          this.isOpenAnimation = false
+          if(this.currentX <= -5*this.clientWidth){
+            this.currentX = -2*this.clientWidth
+          }
+        }, 1000)
       },this.imgRepeatTime)
     },
 
@@ -121,17 +124,27 @@ export default {
       if(this.isOpenAnimation) return
       clearInterval(this.imgInterval)
       this.isOpenAnimation = false
+      if(this.currentX<=-5*this.clientWidth){
+        this.currentX = -2*this.clientWidth
+      }else if(this.currentX>=0){
+        this.currentX = -3*this.clientWidth
+      }
       this.touchStartX = e.touches[0].clientX
       this.touchStartImgX = this.currentX
     },
 
     touchMoveImg(e){
+      if(this.isOpenAnimation) return
       this.currentX = this.touchStartImgX + e.touches[0].clientX - this.touchStartX
     },
 
     touchEndImg(e){
+      if(this.isOpenAnimation) return
+      if(this.imgInterval){
+        clearInterval(this.imgInterval)
+      }
       let touchEndX = e.mp.changedTouches[0].clientX
-      let touchMovePlace = touchEndX-this.touchStartX
+      let touchMovePlace = touchEndX - this.touchStartX
       this.isOpenAnimation = true
       if(touchMovePlace>0){
         this.currentX = this.touchStartImgX + this.clientWidth
