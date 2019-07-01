@@ -7,7 +7,7 @@
       </section>
       <section class="zp-df zp-aic zp-f1 zp-jcc">
         <i class="iconfont iconsousuo" style="margin-right:5px;"></i>
-        <mp-input placeholder="请输入商家名、品类或商圈..." v-model="inputValue" @focus="inputFocus"></mp-input>
+        <mp-input placeholder="请输入商家名、品类或商圈..." v-model="inputValue" ></mp-input>
       </section>
     </header>
     <section class="zp-w100 zp-f1 zp-scrolly">
@@ -25,13 +25,41 @@
         >
         </div>
       </section>
-      <article>
+      <article style="padding-bottom:10px;border-bottom:10px solid #F0EFED;">
         <section style="display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr">
           <article v-for="(nav,i) in navs" :key="i" style="margin-top:10px;">
             <img :src="'http://129.204.192.142/img/mini_index_nav'+nav.img+'.jpg'" alt="加载失败" class="zp-tac" style="display:block;width:50px;height:50px;border-radius:50%;margin:0 auto;"/>
             <div style="margin:0 auto;text-align:center;font-size:14px;">{{ nav.name }}</div>
           </article>
         </section>
+      </article>
+      <article style="padding:10px 0;">
+        <section class="zp-df zp-jcsa zp-tac zp-w100">
+          <div v-for="(recommend,recommendIndex) in recommends" :key="recommend.title+recommendIndex" class="zp-f1">
+            <div style="font-size:16px;" :style="{color:recommend.color}">{{ recommend.title }}</div>
+            <div style="font-size:14px;color:#C8C6C8">{{ recommend.content }}</div>
+            <img :src="'http://129.204.192.142/img/'+recommend.img+'.jpg'" alt="" style="display:block;width:70px;height:70px;border-radius:50%;margin:0 auto;"/>
+          </div>
+        </section>
+      </article>
+
+
+      <article  style="border-top:10px solid #F0EFED;padding-top:10px;">
+        <div style="color:#C8C6C8;font-size:16px;" class="zp-tac">----&nbsp;&nbsp;&nbsp;猜你喜欢&nbsp;&nbsp;&nbsp;----</div>
+        <div class="zp-df" v-for="favourite in favourites" :key="favourite.price" style="padding:10px 15px;">
+          <img class="zp-fs0 zp-dbib" :src="'http://129.204.192.142/img/'+favourite.img+'.jpg'"  style="width:80px;height:100px;"/>
+          <div class="ub-f1 zp-w100" style="margin-left:15px;padding-top:10px;">
+            <section class="zp-df zp-aic zp-jcsb" style="line-height:1;">
+              <div class="zp-line1">{{ favourite.name }}</div>
+              <div style="font-size:14px;color:#C8C6C8">{{ favourite.distance }}</div>
+            </section>
+            <div style="margin-top:10px;color:#C8C6C8;font-size:16px;">{{ favourite.type }}</div>
+            <section class="zp-df zp-aic zp-jcsb" style="line-height:1;margin-top:10px;">
+              <div style="font-size:16px;color:#5CD5BB">{{ favourite.price }}</div>
+              <div style="font-size:14px;color:#C8C6C8">已售:{{ favourite.num }}</div>
+            </section>
+          </div>
+        </div>
       </article>
     </section>
   </div>
@@ -75,7 +103,15 @@ export default {
         {url:'',img:'8',name:'景点门票'},
         {url:'',img:'9',name:'火车票'},
         {url:'',img:'10',name:'明宿'}
-      ]
+      ],
+
+      recommends:[
+        {title:'我们约吧',content:'恋人家人好朋友',url:'',img:'lianren',color:'green'},
+        {title:'低价超值',content:'十元惠生活',url:'',img:'hanbao',color:'red'},
+        {title:'午后时光',content:'懒懒下午茶',url:'',img:'xiawutiandian',color:'pink'}
+      ],
+
+      favourites:[]
     }
   },
 
@@ -84,6 +120,19 @@ export default {
   },
 
   created () {
+    let Random = this.$getRandom
+    
+  
+    for(let i=0;i<Random.natural(30, 60);i++){
+      this.favourites.push({
+        img:'favourite',
+        name:Random.region()+Random.county()+'假日大酒店',
+        distance:Random.float(1, 5, 0, 3)+'km',
+        type:'单人自助晚餐',
+        price:Random.float(200, 10000, 0, 2),
+        num:Random.natural(6000, 100000)
+      })    
+    }
     this.currentX = -3*this.clientWidth
     this.initNavImg()
   },
@@ -178,6 +227,14 @@ export default {
 
 <style scoped>
 
+.zp{
+    width:100px;
+    height:100px;
+    overflow:hidden;
+  }
+
   ::-webkit-scrollbar{width:0px}
+
+  
 
 </style>
