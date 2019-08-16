@@ -3,7 +3,8 @@
     "pages/index/main",
     "pages/order/main",
     "pages/my/main",
-    "pages/city/main"
+    "pages/city/main",
+    "pages/search/main"
   ],
   "permission": {
     "scope.userLocation": {

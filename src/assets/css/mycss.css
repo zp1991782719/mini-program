@@ -42,6 +42,10 @@
   flex-direction: column;
 }
 
+.zp-fww{
+  flex-wrap: wrap;
+}
+
 /*****************************分割线******************************/
 .zp-jcfs{
   justify-content: flex-start;
@@ -111,6 +115,9 @@
 }
 .zp-fs0{
   flex-shrink: 0;
+}
+.zp-fs1{
+  flex-shrink: 1;
 }
 
 /*****************************分割线******************************/

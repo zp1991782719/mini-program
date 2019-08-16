@@ -6,11 +6,9 @@
 
 <script>
 
-import mpInput from 'mpvue-weui/src/input'
 
 export default {
   components: { 
-    mpInput
   },
 
   data () {

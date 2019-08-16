@@ -2,12 +2,12 @@
   <div class="zp-df zp-fdc zp-w100 zp-h100">
     <header class="zp-df zp-aic" style="top:0;padding:5px 10px;border-bottom:1px solid #f8f8f8;">
       <section class="zp-df zp-aic" @click="toCityPage">
-        <div style="margin-right:10px;">{{ cityName }}</div>  
+        <div style="margin-right:4px;">{{ cityName }}</div>  
         <i class="iconfont iconarrowdown"></i>
       </section>
-      <section class="zp-df zp-aic zp-f1 zp-jcc">
+      <section class="zp-df zp-aic zp-f1 zp-jcc" @click="toSearchPage" style="padding:10px 0;">
         <i class="iconfont iconsousuo" style="margin-right:5px;"></i>
-        <mp-input placeholder="请输入商家名、品类或商圈..." v-model="inputValue" ></mp-input>
+        <div style="color:#dddddd;">请输入商家名、品类或商圈...</div>
       </section>
     </header>
     <section class="zp-w100 zp-f1 zp-scrolly">
@@ -67,22 +67,20 @@
 
 <script>
 
-import mpInput from 'mpvue-weui/src/input'
-import Mock from 'mockjs'
+import bmap from "../../lib/bmap-wx.min.js"
 
 export default {
   components: { 
-    mpInput
   },
 
   computed:{
-   
+   cityName(){
+     return this.$store.state.city
+   }
   },
 
   data () {
     return {
-      inputValue:'',
-      cityName:'杭州',
       clientWidth:this.$getSysWidth,  //这是屏幕宽度
       imgs:['index1','index2','index3','index1','index2','index3'],   // 3张图片   但是有手势滑动  需6张
       currentX:0,       //当前的图片位置
@@ -140,6 +138,32 @@ export default {
     wx.setNavigationBarTitle({
       title: '首页'
     })
+
+    var BMap = new bmap.BMapWX({
+      ak: "335Tyss9G8GlZclywPq9MP18nn8a1vto"
+    });
+
+    let vm = this;
+    wx.getLocation({
+      type: "wgs84",
+      success(res) {
+        const latitude = res.latitude;
+        const longitude = res.longitude;
+        const wxMarkerData = {
+          latitude: latitude,
+          longitude: longitude
+        };
+        // 发起regeocoding检索请求
+        BMap.regeocoding({
+          success: res => {
+            let addressComponent = res.originalData.result.addressComponent;
+            //vm.cityName = addressComponent.city;
+            let city = addressComponent.city
+            vm.$store.commit('setCity',city)
+          }
+        });
+      }
+    });
   },
 
   methods:{
@@ -222,9 +246,14 @@ export default {
     },
 
     toCityPage(){
-
       wx.navigateTo({
         url: '/pages/city/main',
+      })
+    },
+
+    toSearchPage(){
+      wx.navigateTo({
+        url: '/pages/search/main',
       })
     }
   }
