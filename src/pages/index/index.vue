@@ -1,7 +1,7 @@
 <template>
   <div class="zp-df zp-fdc zp-w100 zp-h100">
     <header class="zp-df zp-aic" style="top:0;padding:5px 10px;border-bottom:1px solid #f8f8f8;">
-      <section class="zp-df zp-aic">
+      <section class="zp-df zp-aic" @click="toCityPage">
         <div style="margin-right:10px;">{{ cityName }}</div>  
         <i class="iconfont iconarrowdown"></i>
       </section>
@@ -28,7 +28,7 @@
       <article style="padding-bottom:10px;border-bottom:10px solid #F0EFED;">
         <section style="display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr">
           <article v-for="(nav,i) in navs" :key="i" style="margin-top:10px;">
-            <img :src="'http://129.204.192.142/img/mini_index_nav'+nav.img+'.jpg'" alt="加载失败" class="zp-tac" style="display:block;width:50px;height:50px;border-radius:50%;margin:0 auto;"/>
+            <img :src="'http://129.204.192.142/img/mini_index_nav'+nav.img+'.jpg'" alt="加载失败" class="zp-tac" style="display:block;width:35px;height:35px;border-radius:50%;margin:0 auto;"/>
             <div style="margin:0 auto;text-align:center;font-size:14px;">{{ nav.name }}</div>
           </article>
         </section>
@@ -38,7 +38,7 @@
           <div v-for="(recommend,recommendIndex) in recommends" :key="recommend.title+recommendIndex" class="zp-f1">
             <div style="font-size:16px;" :style="{color:recommend.color}">{{ recommend.title }}</div>
             <div style="font-size:14px;color:#C8C6C8">{{ recommend.content }}</div>
-            <img :src="'http://129.204.192.142/img/'+recommend.img+'.jpg'" alt="" style="display:block;width:70px;height:70px;border-radius:50%;margin:0 auto;"/>
+            <img :src="'http://129.204.192.142/img/'+recommend.img+'.jpg'" alt="" style="display:block;width:50px;height:50px;border-radius:50%;margin:10px auto;"/>
           </div>
         </section>
       </article>
@@ -122,7 +122,6 @@ export default {
   created () {
     let Random = this.$getRandom
     
-  
     for(let i=0;i<Random.natural(30, 60);i++){
       this.favourites.push({
         img:'favourite',
@@ -139,7 +138,7 @@ export default {
 
   mounted(){
     wx.setNavigationBarTitle({
-      title: '首页呦'
+      title: '首页'
     })
   },
 
@@ -221,6 +220,13 @@ export default {
         this.initNavImg()
       }
     },
+
+    toCityPage(){
+
+      wx.navigateTo({
+        url: '/pages/city/main',
+      })
+    }
   }
 }
 </script>

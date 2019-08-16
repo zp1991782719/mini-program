@@ -27,6 +27,20 @@ wx.getSystemInfo({
     Vue.prototype.$getSysInfo = res
   }
 })
+Vue.prototype.$toast = (title,icon='none') => {
+  wx.showToast({
+    title:title+'',
+    icon:icon
+  })
+}
+Vue.prototype.$title = (title) => {
+  wx.setNavigationBarTitle({
+    title: title+''
+  })
+}
+
+
+
 
 app.$mount()
 
