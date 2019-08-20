@@ -1,4 +1,4 @@
 const state = {
-  city:''
+  city:'',
 }
 export default state
