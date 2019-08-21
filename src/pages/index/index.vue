@@ -46,7 +46,7 @@
 
       <article  style="border-top:10px solid #F0EFED;padding-top:10px;">
         <div style="color:#C8C6C8;font-size:16px;" class="zp-tac">----&nbsp;&nbsp;&nbsp;猜你喜欢&nbsp;&nbsp;&nbsp;----</div>
-        <div class="zp-df" v-for="favourite in favourites" :key="favourite.price" style="padding:10px 15px;">
+        <div class="zp-df" v-for="favourite in favourites" :key="favourite.price" style="padding:10px 15px;" @click="toHotelPage(favourite)">
           <img class="zp-fs0 zp-dbib" :src="'http://129.204.192.142/img/'+favourite.img+'.jpg'"  style="width:80px;height:100px;"/>
           <div class="ub-f1 zp-w100" style="margin-left:15px;padding-top:10px;">
             <section class="zp-df zp-aic zp-jcsb" style="line-height:1;">
@@ -254,6 +254,13 @@ export default {
     toSearchPage(){
       wx.navigateTo({
         url: '/pages/search/main',
+      })
+    },
+
+    toHotelPage(favourite){
+      let o = favourite
+      wx.navigateTo({
+        url: '/pages/hotelDetails/main?params='+JSON.stringify(o),
       })
     }
   }

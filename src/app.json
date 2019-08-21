@@ -4,7 +4,8 @@
     "pages/order/main",
     "pages/my/main",
     "pages/city/main",
-    "pages/search/main"
+    "pages/search/main",
+    "pages/hotelDetails/main"
   ],
   "permission": {
     "scope.userLocation": {
