@@ -132,6 +132,7 @@ export default {
     }
     this.currentX = -3*this.clientWidth
     this.initNavImg()
+    
   },
 
   mounted(){
