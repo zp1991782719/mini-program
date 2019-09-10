@@ -11,7 +11,8 @@
       </section>
     </header>
     <section class="zp-w100 zp-f1 zp-scrolly">
-      <article class="zp-w100" @touchstart="touchStartImg" @touchmove="touchMoveImg" @touchend="touchEndImg">
+      <!-- @touchstart="touchStartImg" @touchmove="touchMoveImg" @touchend="touchEndImg" -->
+      <article class="zp-w100" >
         <div class="zp-df" style="width:600%;overflow:hidden;" :style="{transform:'translateX('+currentX+'px)',transition:isOpenAnimation?'transform 1s':'transform 0s'}">
           <img :src="'http://129.204.192.142/img/mini_'+img+'.jpg'"  v-for="(img,imgIndex) in imgs" :key="imgIndex" class="zp-f1" style="background-size:contain;"/>
         </div>
@@ -177,10 +178,10 @@ export default {
         this.isOpenAnimation = true
         this.currentX -= this.clientWidth
         setTimeout(() => {
-          this.isOpenAnimation = false
           if(this.currentX <= -5*this.clientWidth){
             this.currentX = -2*this.clientWidth
           }
+          this.isOpenAnimation = false
         }, 1000)
       },this.imgRepeatTime)
     },
@@ -189,6 +190,9 @@ export default {
       clearInterval(this.imgInterval)
       this.isOpenAnimation = true
       this.currentX = (-3 - index) * this.clientWidth
+      if(this.currentX <= -5*this.clientWidth){
+        this.currentX = -2*this.clientWidth
+      }
       this.isAutoWork = false
       this.initNavImg()
     },
